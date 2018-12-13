@@ -1,0 +1,30 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+//
+// Copyright (C) 2017 Chen-Yu Tsai <wens@csie.org>
+//
+// GPS module connected on UART 3 {PH0, PH1}, with PPS signal on PH2.
+//
+// Including the 5V supply and ground, this uses the pins {2,4,6,8,10}
+// on the GPIO connector. The pins are conveniently grouped together.
+
+#ifdef __DTO_TEST__
+#include <arm/sun7i-a20-bananapi-m1-plus.dts>
+#else
+/dts-v1/;
+/plugin/;
+#endif
+
+#include <dt-bindings/gpio/gpio.h>
+
+&{/} {
+	pps {
+		compatible = "pps-gpio";
+		gpios = <&pio 7 2 GPIO_ACTIVE_HIGH>; /* PH2 */
+	};
+};
+
+&uart3 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&uart3_ph_pins>;
+	status = "okay";
+};
