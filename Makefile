@@ -3,6 +3,7 @@
 # Copyright (C) 2017 Chen-Yu Tsai <wens@csie.org>
 
 DT_OVERLAYS :=
+DT_OVERLAYS += bpi-m1p-gps.dtbo
 
 KERNEL_SRC ?= $(HOME)/linux
 DTC ?= $(KERNEL_SRC)/scripts/dtc/dtc
