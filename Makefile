@@ -9,6 +9,7 @@ DT_OVERLAYS += bpi-m1p-lcd.dtbo
 DT_OVERLAYS += bpi-m2p-ov5640.dtbo
 DT_OVERLAYS += bpi-m3-bpi-camera.dtbo
 DT_OVERLAYS += bpi-m64-ov5640.dtbo
+DT_OVERLAYS += pine64-rtl8723bs.dtbo
 
 KERNEL_SRC ?= $(HOME)/linux
 DTC ?= $(KERNEL_SRC)/scripts/dtc/dtc
