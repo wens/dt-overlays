@@ -16,3 +16,5 @@ This is a collection of device tree overlays that I use on my hardware.
 
   - bpi-m64-ov5640.dts: OV5640 camera sensor module from Bananapi on
 			Bananapi M64
+
+  - pine64-rtl8723bs.dts: Pine64 RTL8723BS WiFi+BT module on Pine64
