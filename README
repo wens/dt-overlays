@@ -1,5 +1,9 @@
 This is a collection of device tree overlays that I use on my hardware.
 
+  - all-h3-cc-opi-ov5640.dts: OV5640 camera sensor module from Bananapi on
+			      Orangepi camera module (disables auto-focus)
+			      connected to Libre Computer ALL-H3-CC
+
   - bpi-m1p-gps.dts: UART-based GPS module with PPS signal on GPIO pin
 		     on the Bananapi M1+
 

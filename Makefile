@@ -3,6 +3,7 @@
 # Copyright (C) 2017 Chen-Yu Tsai <wens@csie.org>
 
 DT_OVERLAYS :=
+DT_OVERLAYS += all-h3-cc-opi-ov5640.dtbo
 DT_OVERLAYS += bpi-m1p-gps.dtbo
 DT_OVERLAYS += bpi-m1p-lcd.dtbo
 DT_OVERLAYS += bpi-m2p-ov5640.dtbo
