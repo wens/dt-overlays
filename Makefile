@@ -4,6 +4,7 @@
 
 DT_OVERLAYS :=
 DT_OVERLAYS += bpi-m1p-gps.dtbo
+DT_OVERLAYS += bpi-m1p-lcd.dtbo
 
 KERNEL_SRC ?= $(HOME)/linux
 DTC ?= $(KERNEL_SRC)/scripts/dtc/dtc
