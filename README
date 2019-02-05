@@ -9,3 +9,6 @@ This is a collection of device tree overlays that I use on my hardware.
 			Bananapi M2+
 
   - bpi-m3-bpi-camera.dts: Bananapi Camera v3 module attached to Bananapi M3
+
+  - bpi-m64-ov5640.dts: OV5640 camera sensor module from Bananapi on
+			Bananapi M64
