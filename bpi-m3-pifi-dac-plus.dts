@@ -1,0 +1,59 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+//
+// Copyright (C) 2019 Chen-Yu Tsai <wens@csie.org>
+//
+// PiFi DAC+ v2.0 (Pi-DAC+ clone) connected to BPI-M3 on I2S1 / I2C2.
+// The power, ground, and I2C pins are in the same position, but the
+// I2S ones are not.
+//
+// On BPI-M1+, I2S0 and I2C2 or I2C3 would be used with jumper cables.
+// On BPI-M2+, I2S0 and I2C0 or I2C1 would be used with jumper cables.
+// On BPI-M3, I2S1 and I2C1 or I2C2 would be used with jumper cables.
+// On BPI-M64, I2S0 and I2C1 would be used with jumper cables.
+// On Pine64, I2S0 on Euler E and I2C1 on RPi header would be used with
+// jumper cables.
+//
+// On ALL-H3-CC, I2S1 and I2C0 correspond to the Raspberry Pi pinouts.
+// Alternatively, you could use I2S0 and/or I2C1 with jumper cables.
+
+#ifdef __DTO_TEST__
+#include <arm/sun8i-a83t-bananapi-m3.dts>
+#else
+/dts-v1/;
+/plugin/;
+#endif
+
+&{/} {
+	dac-sound {
+		compatible = "simple-audio-card";
+		simple-audio-card,name = "PiFi DAC+ v2.0";
+		simple-audio-card,format = "i2s";
+		simple-audio-card,mclk-fs = <128>;
+		simple-audio-card,frame-master = <&link_cpu>;
+		simple-audio-card,bitclock-master = <&link_cpu>;
+
+		link_cpu: simple-audio-card,cpu {
+			sound-dai = <&i2s1>;
+		};
+
+		simple-audio-card,codec {
+			sound-dai = <&pcm5122>;
+		};
+	};
+};
+
+&i2c2 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&i2c2_ph_pins>;
+	status = "okay";
+
+	pcm5122: codec@4d {
+		#sound-dai-cells = <0>;
+		compatible = "ti,pcm5122";
+		reg = <0x4d>;
+	};
+};
+
+&i2s1 {
+	status = "okay";
+};
