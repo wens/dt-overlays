@@ -8,6 +8,7 @@ DT_OVERLAYS += bpi-m1p-bpi-camera-v1.dtbo
 DT_OVERLAYS += bpi-m1p-gps.dtbo
 DT_OVERLAYS += bpi-m1p-lcd.dtbo
 DT_OVERLAYS += bpi-m2p-ov5640.dtbo
+DT_OVERLAYS += bpi-m2u-ov5640.dtbo
 DT_OVERLAYS += bpi-m3-bpi-camera.dtbo
 DT_OVERLAYS += bpi-m3-pifi-dac-plus.dtbo
 DT_OVERLAYS += bpi-m64-ov5640.dtbo
