@@ -1,0 +1,33 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+//
+// Copyright (C) 2018 Chen-Yu Tsai <wens@csie.org>
+//
+// Enable USB hosts 2 & 3 on pin header
+
+#ifdef __DTO_TEST__
+#include <arm64/allwinner/sun50i-h5-libretech-all-h3-it.dts>
+#else
+/dts-v1/;
+/plugin/;
+#endif
+
+&ehci2 {
+	status = "okay";
+};
+
+&ehci3 {
+	status = "okay";
+};
+
+&ohci2 {
+	status = "okay";
+};
+
+&ohci3 {
+	status = "okay";
+};
+
+&usbphy {
+	usb2_vbus-supply = <&reg_vcc5v0>;
+	usb3_vbus-supply = <&reg_vcc5v0>;
+};
