@@ -1,0 +1,99 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+//
+// Copyright (C) 2018 Chen-Yu Tsai <wens@csie.org>
+//
+// Libre Computer OV5640 camera module
+
+#ifdef __DTO_TEST__
+#include <arm/sun8i-h3-libretech-all-h3-cc.dts>
+#else
+/dts-v1/;
+/plugin/;
+#endif
+
+#include <dt-bindings/clock/sun8i-h3-ccu.h>
+#include <dt-bindings/gpio/gpio.h>
+
+&{/} {
+	reg_cam_avdd: cam-avdd {
+		compatible = "regulator-fixed";
+		regulator-name = "csi-avdd";
+		regulator-min-microvolt = <2800000>;
+		regulator-max-microvolt = <2800000>;
+		startup-delay-us = <200>; /* 50 us + board delays */
+		enable-active-high;
+		gpio = <&r_pio 0 0 GPIO_ACTIVE_HIGH>; /* PL0 */
+	};
+
+	reg_cam_dovdd: cam-dovdd {
+		compatible = "regulator-fixed";
+		regulator-name = "csi-dovdd";
+		regulator-min-microvolt = <2800000>;
+		regulator-max-microvolt = <2800000>;
+		startup-delay-us = <200>; /* 50 us + board delays */
+		enable-active-high;
+		gpio = <&r_pio 0 0 GPIO_ACTIVE_HIGH>; /* PL0 */
+	};
+
+	reg_cam_dvdd: cam-dvdd {
+		compatible = "regulator-fixed";
+		regulator-name = "csi-dvdd";
+		regulator-min-microvolt = <1500000>;
+		regulator-max-microvolt = <1500000>;
+		startup-delay-us = <200>; /* 50 us + board delays */
+		enable-active-high;
+		gpio = <&r_pio 0 0 GPIO_ACTIVE_HIGH>; /* PL0 */
+	};
+};
+
+&csi {
+	status = "okay";
+
+	port {
+		/* Parallel bus endpoint */
+		csi_from_ov5640: endpoint {
+			remote-endpoint = <&ov5640_to_csi>;
+			bus-width = <8>;
+			hsync-active = <1>; /* Active high */
+			vsync-active = <0>; /* Active low */
+			pclk-sample = <0>;  /* Rising */
+		};
+	};
+};
+
+&i2c2 {
+	status = "okay";
+
+	ov5640: camera@3c {
+		compatible = "ovti,ov5640";
+		reg = <0x3c>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&csi_mclk_pin>;
+		clocks = <&ccu CLK_CSI_MCLK>;
+		clock-names = "xclk";
+
+		powerdown-gpios = <&pio 4 14 GPIO_ACTIVE_HIGH>; /* PE14 */
+		reset-gpios = <&pio 4 15 GPIO_ACTIVE_LOW>; /* PE15 */
+		AVDD-supply = <&reg_cam_avdd>;
+		DOVDD-supply = <&reg_cam_dovdd>;
+		DVDD-supply = <&reg_cam_dvdd>;
+
+		port {
+			ov5640_to_csi: endpoint {
+				remote-endpoint = <&csi_from_ov5640>;
+				bus-width = <8>;
+				data-shift = <2>;
+				hsync-active = <1>; /* Active high */
+				vsync-active = <0>; /* Active low */
+				pclk-sample = <1>;  /* Rising */
+			};
+		};
+	};
+};
+
+&pio {
+	csi_mclk_pin: csi-mclk {
+		pins = "PE1";
+		function = "csi";
+	};
+};
