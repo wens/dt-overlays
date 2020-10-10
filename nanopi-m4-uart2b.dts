@@ -1,0 +1,22 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+//
+// Copyright (C) 2020 Chen-Yu Tsai <wens@csie.org>
+//
+// Use UART2 on GPIO header instead of dedicated debug UART header.
+// This helps to preserve the UART when the NVMe adapter is installed.
+//
+// If you are using this overlay, you probably want to update U-boot
+// to use the UART2 B channel as well.
+
+#ifdef __DTO_TEST__
+#include <arm64/rockchip/rk3399-nanopi-m4.dts>
+#else
+/dts-v1/;
+/plugin/;
+#endif
+
+#include <dt-bindings/gpio/gpio.h>
+
+&uart2 {
+	pinctrl-0 = <&uart2b_xfer>;
+};
