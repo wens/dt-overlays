@@ -1,0 +1,32 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+//
+// Copyright (C) 2020 Chen-Yu Tsai <wens@csie.org>
+//
+// DS3231 RTC module on RPi-compatible GPIO header (the I2C pins next to 3.3V)
+// This is I2C2 on Allwinner A20 and R40 boards such as Bananapi.
+//
+// This compensates for the lack of battery-backed RTC on many boards
+
+#ifdef __DTO_TEST__
+#include <arm/sun7i-a20-bananapi.dts>
+#else
+/dts-v1/;
+/plugin/;
+#endif
+
+&{/} {
+	aliases {
+		/* Make the external RTC the default one */
+		rtc0 = <&ds3231>;
+		rtc1 = <&rtc>;
+	};
+};
+
+&i2c2 {
+	status = "okay";
+
+	ds3231: rtc@68 {
+		compatible = "maxim,ds3231";
+		reg = <0x68>;
+	};
+};

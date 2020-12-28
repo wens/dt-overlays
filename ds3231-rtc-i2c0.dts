@@ -1,0 +1,36 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+//
+// Copyright (C) 2020 Chen-Yu Tsai <wens@csie.org>
+//
+// DS3231 RTC module on RPi-compatible GPIO header (the I2C pins next to 3.3V)
+// This is I2C0 on many Allwinner A31/H3/H5 based boards.
+//
+// Note that this overlay does not work on A83T based boards, as the RTC
+// in the PMIC uses a different label, and thus the "rtc1" alias will not
+// resolve correctly.
+//
+// This compensates for the lack of battery-backed RTC on many boards
+
+#ifdef __DTO_TEST__
+#include <arm/sun8i-h3-bananapi-m2-plus.dts>
+#else
+/dts-v1/;
+/plugin/;
+#endif
+
+&{/} {
+	aliases {
+		/* Make the external RTC the default one */
+		rtc0 = <&ds3231>;
+		rtc1 = <&rtc>;
+	};
+};
+
+&i2c0 {
+	status = "okay";
+
+	ds3231: rtc@68 {
+		compatible = "maxim,ds3231";
+		reg = <0x68>;
+	};
+};

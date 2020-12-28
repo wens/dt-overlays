@@ -14,6 +14,7 @@ DT_OVERLAYS += bpi-m2u-ov5640.dtbo
 DT_OVERLAYS += bpi-m3-bpi-camera.dtbo
 DT_OVERLAYS += bpi-m3-pifi-dac-plus.dtbo
 DT_OVERLAYS += bpi-m64-ov5640.dtbo
+DT_OVERLAYS += ds3231-rtc-i2c0.dtbo ds3231-rtc-i2c1.dtbo ds3231-rtc-i2c2.dtbo
 DT_OVERLAYS += nanopi-m4-uart2b.dtbo
 DT_OVERLAYS += pine64-rtl8723bs.dtbo
 
